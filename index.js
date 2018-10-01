@@ -19,11 +19,18 @@
 
  app.use(express.static(__dirname + '/public'));
 
- app.use((req,res,next) => {
+ app.use('/about',(req,res,next) => {
 
- 	//res.render('maintenance.hbs');
+ 	console.log('first middleware');
  	next();
  	
+ })
+
+ app.use((req,res,next) => {
+
+ 	console.log('second middleware');
+ 	next();
+
  })
 
 
@@ -35,11 +42,15 @@
 
  app.get('/about', (req, res) => {
  	res.render('about.hbs', {
- 		pageTitle: 'Tentang Saya',
- 		reqObj: req
+ 		pageTitle: 'Tentang Saya'
  	});   
  })
 
+app.get('/projects', (req, res) => {
+	res.render('projects.hbs', {
+		pageTitle: 'Project Page'
+	})
+})
 
 
  app.listen(port, () => {
